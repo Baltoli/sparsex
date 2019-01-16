@@ -94,3 +94,8 @@ test/src/test_timer
 # Generated as test output
 test_sparsex.err
 test_sparsex.out
+
+# Generated after install
+doc/api/
+doc/devel/
+include/sparsex/internals/Config.hpp.install
