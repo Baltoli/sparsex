@@ -133,7 +133,7 @@ typedef unsigned int spx_vecmode_t;
 static inline
 int check_indexing(spx_option_t base)
 {
-    return (base == SPX_INDEX_ZERO_BASED || base == SPX_INDEX_ONE_BASED);
+    return (base == 0 || base == 1);
 }
 
 /**

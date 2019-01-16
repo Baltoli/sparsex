@@ -99,3 +99,5 @@ test_sparsex.out
 doc/api/
 doc/devel/
 include/sparsex/internals/Config.hpp.install
+
+*.swp

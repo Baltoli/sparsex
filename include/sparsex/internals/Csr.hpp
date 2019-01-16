@@ -133,18 +133,20 @@ namespace sparsex {
 
       iterator begin()
       {
-        if (reordered_)
+        if (reordered_) {
 	  return iterator(this, 0, permutation_);
-        else
+        } else {
 	  return iterator(this, 0);
+        }
       }
 
       iterator end()
       {
-        if (reordered_)
+        if (reordered_) {
 	  return iterator(this, nr_nzeros_, permutation_);
-        else
+        } else {
 	  return iterator(this, nr_rows_);
+        }
       }
 
       row_iterator row_begin(IndexType row_idx)
@@ -262,10 +264,11 @@ namespace sparsex {
       iterator(CSR<IndexType, ValueType> *csr, IndexType row_idx)
         : csr_(csr),
           curr_row_(row_idx),
-          curr_elem_(csr_->rowptr_[row_idx]),
+          curr_elem_(csr_->rowptr_[row_idx] - !csr_->zero_based_),
           row_index_(row_idx),
           elem_count_(csr_->rowptr_[row_idx])
-      {}
+      {
+      }
 
       iterator(CSR<IndexType, ValueType> *csr, const vector<size_t> &inv_perm)
         : csr_(csr),
