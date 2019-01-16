@@ -260,7 +260,7 @@ namespace sparsex {
     }
 
     template<typename IndexType, typename ValueType>
-    static void DestroyCsx(CsxMatrix<IndexType, ValueType> *csx)
+    void DestroyCsx(CsxMatrix<IndexType, ValueType> *csx)
     {
 #if SPX_USE_NUMA
       NumaAllocator &alloc = NumaAllocator::GetInstance();
@@ -280,7 +280,7 @@ namespace sparsex {
     }
 
     template<typename IndexType, typename ValueType>
-    static void DestroyCsxSym(CsxSymMatrix<IndexType, ValueType> *csx_sym)
+    void DestroyCsxSym(CsxSymMatrix<IndexType, ValueType> *csx_sym)
     {
 #if SPX_USE_NUMA
       uint64_t diag_size = csx_sym->lower_matrix->nrows;
