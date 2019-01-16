@@ -121,12 +121,13 @@ Please check your installation of LLVM and Clang.])
     fi
 
     dnl Required Clang libs
-    CLANG_LIBS="-lclangCodeGen -lclangAST -lclangASTMatchers -lclangAnalysis dnl
--lclangBasic -lclangDriver -lclangEdit -lclangFrontend -lclangFrontendTool dnl
--lclangLex -lclangParse -lclangSema -lclangEdit -lclangRewrite dnl
+    CLANG_LIBS="-lclangCodeGen -lclangASTMatchers dnl
+-lclangEdit -lclangFrontend -lclangFrontendTool dnl
+-lclangParse -lclangSema -lclangEdit -lclangRewrite dnl
 -lclangRewriteFrontend -lclangStaticAnalyzerFrontend dnl
 -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore -lclangSerialization dnl
--lclangToolingCore -lclangTooling -lclangFormat"
+-lclangToolingCore -lclangTooling -lclangFormat -lclangDriver -lclangAnalysis dnl
+-lclangAST -lclangLex -lclangBasic"
 
     dnl Retrieve Clang's system header search path
     clang_inc_search_dirs=`${CLANG_PREFIX}/bin/clang -E -v -xc -std=c99 - dnl
