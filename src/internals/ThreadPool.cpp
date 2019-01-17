@@ -68,8 +68,8 @@ namespace sparsex {
         // supply a suitable object pointer as the first argument
         // workers_[i].thread_ = make_shared<boost::thread>
         //     (&ThreadPool::Run, this, workers_.data() + i);
-        workers_[i].thread_ = std::make_unique<thread>(&ThreadPool::Run, this,
-						  ref(workers_[i]));
+        workers_[i].thread_ = std::unique_ptr<thread>(
+            new thread(&ThreadPool::Run, this, ref(workers_[i])));
       }
 
       centralized_barrier(GetSense(), size_ + 1);
