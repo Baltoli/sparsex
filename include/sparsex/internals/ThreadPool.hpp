@@ -47,6 +47,16 @@ namespace sparsex {
     public:
       Worker() : sense_(1), job_(IDLE) {}
 
+      Worker(Worker&&) = default;
+      Worker& operator=(Worker&& other)
+      {
+        id_ = std::move(other.id_);
+        sense_ = std::move(other.sense_);
+        thread_ = std::move(other.thread_);
+        data_ = std::move(other.data_);
+        return *this;
+      }
+
       void SetId(size_t id)
       {
         id_ = id;
@@ -77,7 +87,7 @@ namespace sparsex {
       int sense_;
       int job_;
       // use unique_ptr when C++14 available (make_unique)
-      std::shared_ptr<thread> thread_;
+      std::unique_ptr<thread> thread_;
       void *data_;
     };
 
@@ -110,6 +120,8 @@ namespace sparsex {
       }
 
     private:
+      bool threads_created_ = false;
+
       int sense_;
       size_t size_;
       atomic_bool work_done_;

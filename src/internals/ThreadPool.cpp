@@ -46,6 +46,10 @@ namespace sparsex {
 
     void ThreadPool::InitThreads(size_t nr_threads)
     {
+      if(threads_created_) {
+        return;
+      }
+
       if (nr_threads < 0) {
         LOG_ERROR << "initializing thread pool with invalid number of threads";
         exit(1);
@@ -54,8 +58,9 @@ namespace sparsex {
       size_ = nr_threads;
       global_sense = 1;
       barrier_cnt = nr_threads + 1;
-      if (size_)
+      if (size_) {
         workers_.resize(size_);
+      }
 
       for (size_t i = 0; i < size_; i++) {
         workers_[i].SetId(i+1);
@@ -63,11 +68,12 @@ namespace sparsex {
         // supply a suitable object pointer as the first argument
         // workers_[i].thread_ = make_shared<boost::thread>
         //     (&ThreadPool::Run, this, workers_.data() + i);
-        workers_[i].thread_ = make_shared<thread>(&ThreadPool::Run, this,
+        workers_[i].thread_ = std::make_unique<thread>(&ThreadPool::Run, this,
 						  ref(workers_[i]));
       }
 
       centralized_barrier(GetSense(), size_ + 1);
+      threads_created_ = true;
     }
 
     void ThreadPool::Run(Worker &worker)
@@ -80,9 +86,10 @@ namespace sparsex {
       centralized_barrier(worker.GetSense(), size_ + 1);
       while (!work_done_.load()) {
         switch (worker.GetJob()) {
-        case SPMV_MULT:
+        case SPMV_MULT: {
 	  do_mv_thread(worker.data_);
 	  break;
+        }
         case SPMV_KERNEL:
 	  do_kernel_thread(worker.data_);
 	  break;

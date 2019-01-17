@@ -97,7 +97,7 @@ CXXFLAGS_save="$CXXFLAGS"
 LDFLAGS_save="$LDFLAGS"
 
 CPPFLAGS=""
-CXXFLAGS="-std=c++0x -pedantic"
+CXXFLAGS="-std=c++14 -pedantic"
 LDFLAGS=""
 
 AC_LANG_PUSH([C++])
@@ -246,7 +246,7 @@ AX_CHECK_CFLAGS([-O0])
 AX_CHECK_CFLAGS([-O3])
 AX_CHECK_CFLAGS([-std=c99])
 AX_CHECK_CFLAGS([-Wall])
-AX_CHECK_CXXFLAGS([-std=c++0x])
+AX_CHECK_CXXFLAGS([-std=c++14])
 AX_CHECK_CXXFLAGS([-Wall])
 AX_CHECK_CXXFLAGS([-Woverloaded-virtual])
 
@@ -254,11 +254,11 @@ case "$ax_build_mode" in
     "debug")
         # undefine NDEBUG; LLVM doesn't want it
         ax_pkg_cppflags="-UNDEBUG -DSPX_DEBUG=1"
-        ax_pkg_cxxflags="-g -O0 -std=c++0x -pedantic -fopenmp -Wall -Woverloaded-virtual -Wno-unused-local-typedefs"
+        ax_pkg_cxxflags="-g -O0 -std=c++14 -pedantic -fopenmp -Wall -Woverloaded-virtual -Wno-unused-local-typedefs"
         ax_pkg_cflags="-g -O0 -std=c99 -pedantic -fopenmp -Wall -Wno-unused-local-typedefs" ;;
     "release")
         ax_pkg_cppflags="-DNDEBUG"
-        ax_pkg_cxxflags="-g -O3 -std=c++0x -pedantic -fopenmp -Wall -Wno-unused-local-typedefs"
+        ax_pkg_cxxflags="-g -O3 -std=c++14 -pedantic -fopenmp -Wall -Wno-unused-local-typedefs"
         ax_pkg_cflags="-g -O3 -std=c99 -pedantic -fopenmp -Wall -Wno-unused-local-typedefs" ;;
     *)
         AC_MSG_ERROR(
